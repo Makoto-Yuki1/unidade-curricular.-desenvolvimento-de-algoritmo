@@ -17,5 +17,7 @@ print("altura:", aluno["altura"])
 print("media:", round(aluno["media"],2))
 if media >= 7:
     print("você foi aprovado, parabêns!")
-if media >= 5 
-    print("você foi aprovado, parabêns!")
+if media >= 5:
+    print("você ficou de recuperação")
+else:
+    print("você foi reprovado, muito burro lkkkkkkkkkkk")
