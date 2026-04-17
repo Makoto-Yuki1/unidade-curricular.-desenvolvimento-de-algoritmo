@@ -1,0 +1,1 @@
+print("hello world, por sinal, sabe por que não existe cor preta?")
