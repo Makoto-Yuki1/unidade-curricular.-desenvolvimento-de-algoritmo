@@ -1,5 +1,17 @@
-resp = input("você posssui carteira dde motorista? s/N:").strip().lower()
-resultado = resp in ("s","S", "N", "n", "não", "sim")
+from flask import Flask, render_template
 
-print("resultado",resultado)
-print(type(resultado))
+app = Flask(__name__)
+
+@app.route('/nomw', defaults={"nome":"usuário comum"})
+@app.route('/nome/<nome>')
+def dados(nome): 
+  return f'olá, {nome}!'
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    app.run()
