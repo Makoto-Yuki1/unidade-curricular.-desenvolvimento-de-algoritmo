@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login do trabalho</title>
+    <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#2563eb;
+      --muted:#9aa4b2;
+      --danger:#ef4444;
+      --input:#111827;
+      --radius:12px;
+      font-family: Inter, system-ui, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg,#071022 0%, #0f1724 100%);
+      color:#e6eef8;
+    }
+    .wrap{
+      width:100%;
+      max-width:420px;
+      padding:28px;
+        }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      padding:28px;
+      border-radius:var(--radius);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+    h1{margin:0 0 8px;font-size:20px}
+    p.lead{margin:0 0 18px;color:var(--muted);font-size:13px}
+    .errors{
+        background:rgba(239,68,68,0.08);
+      border:1px solid rgba(239,68,68,0.15);
+      color:var(--danger);
+      padding:10px 12px;
+      margin-bottom:14px;
+      border-radius:8px;
+      font-size:13px;
+    }
+    form label{display:block;margin:12px 0 6px;font-size:12px;color:var(--muted)}
+    .field{
+      display:block;
+      width:100%;
+      background:var(--input);
+      border:1px solid rgba(255,255,255,0.03);
+      padding:10px 12px;
+      color:#eef6ff;
+      border-radius:8px;
+      font-size:14px;
+    }
+    .row{display:flex;gap:12px}
+    .row .field{flex:1}
+    .actions{margin-top:18px;display:flex;gap:10px;align-items:center;justify-content:space-between}
+    .btn{
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow:0 6px 18px rgba(37,99,235,0.25);
+    }
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .small{font-size:12px;color:var(--muted)}
+    .note{margin-top:14px;font-size:12px;color:var(--muted);text-align:center}
+    @media (max-width:480px){.wrap{padding:18px}}
+   </style>
+</head>
+<body>
+    <h1>formulário de cadastro</h1>
+    <form action="/validacao" method="POST">
+ 
+        <label for="nome">nome:</label>
+        <input type="text" id="nome" name="nome">
+
+        <label for="email">E-mail:</label>
+        <input type="text" id="email" name="email">
+        
+        <label for="CPF">CPF:</label>
+        <input type="text" id="CPF" name="CPF">
+         
+         <label for="Telefone">Telefone:</label>
+        <input type="text" id="Telefone" name="Telefone">
+
+         <label for="Cidade">Cidade:</label>
+        <input type="text" id="Cidade" name="Cidade">
+
+         <label for="Estado">Estado:</label>
+        <input type="text" id="Estado" name="Estado">
+
+         <label for="Curso">Curso:</label>
+        <input type="text" id="Curso" name="Curso">
+
+         <label for="Idade">Idade:</label>
+        <input type="text" id="Idade" name="Idade">
+
+         <label for="Senha">Senha:</label>
+        <input type="password" id="Senha" name="Senha">
+
+        <button type="submit">cadastrar</button>
+
+
+
+    </form>
+</body>
+</html>
