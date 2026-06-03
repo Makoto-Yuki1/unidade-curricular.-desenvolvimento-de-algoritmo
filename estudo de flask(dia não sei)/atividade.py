@@ -16,6 +16,6 @@ if len(nickname) < 4 or jogo == "" or email == "":
 else: mensagem = "Inscrição realizada com sucesso!" 
 
 
-return render_template('index.html', mensagem=mensagem) 
+return render_template('registro.html', mensagem=mensagem) 
 
 if __name__ == "__main__": app.run(debug=True)
