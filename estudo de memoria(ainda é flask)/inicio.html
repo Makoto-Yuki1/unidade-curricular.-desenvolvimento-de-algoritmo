@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <body class="tema-{{ tema }}">
+        <div class="card">
+        <h1>cookies no flask</h1>
+        <p>o tema escolhido ficará salvo no navegador</p>
+        <h2>tema atual: {{ tema }}</h2>
+        <div class="botoes">
+            <a href="{{ url_for('trocar_tema', escolha='claro') }}"> 
+                tema claro</a>
+            <a href="{{ url_for('trocar_tema', escolha='escuro') }}">
+                tema escuro
+            </a>
+
+        </div>
+
+
+        </div>
+    </body>
+</body>
+</html>
+
+
+
+
+
+
+
+
