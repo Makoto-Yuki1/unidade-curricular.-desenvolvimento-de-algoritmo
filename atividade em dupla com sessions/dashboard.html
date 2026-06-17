@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Área Restrita</h1>
+
+    <p>
+        Bem-vindo,
+        <span class="usuario">
+            {{ usuario }}
+        </span>
+    </p>
+
+    <p>
+        Você está autenticado no sistema.
+    </p>
+
+    <a class="botao" href="{{ url_for('logout') }}">
+        Logout
+    </a>
+
+</div>
+
+</body>
+</html>
