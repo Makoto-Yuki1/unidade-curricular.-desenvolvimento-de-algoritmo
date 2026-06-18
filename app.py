@@ -1,21 +1,47 @@
-from flask import Flask, render_template
-from flask import request
+from flask import (
+    Flask,
+    render_template,
+    session,
+    redirect,
+    url_for,
+    request,
+    flash
+)
+
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/adicionar', methods=['GET', 'POST'])
+def adicionar(): #index é a função que vai ser executada quando o usuário acessar a rota '/'
+    tarefas = [
+        {'id': 1, 'nome': 'brócolis','calorias': 10.00},
+        {'id': 2, 'nome': 'picanha','calorias': 280.00},
+        {'id': 3, 'nome': 'miojo SABOORRRR picanha','calorias': 150.00},
+        {'id': 4, 'nome': 'macarrão prego','calorias': 200.00},
+        {'id': 5, 'nome': 'feijão preto', 'calorias': 250.00},
+        {'id': 6, 'nome': 'bixcoito maizena','calorias': 300.00}
+    ]
+    return render_template('index.html', tarefas=tarefas)
 
-@app.route('/index')
-def index():
-    return render_template('login.html')
+@app.route('/tarefas', methods=['GET', 'POST'])
+def tarefas():
+    if request.method == 'POST':
 
-@app.route('/autenticar', methods = ['GET'])
-def autenticar():
-     nome= request.args.get('nome')
-     curso= request.args.get('nome')
-     cidade = request.args.get('cidade')
-     idade = request.args.get('idade')
-     return "nome {} e curso {} e cidade {} e idade {}".format(nome, curso, cidade, idade)
+        session['arroz'] = request.form.POST('arroz')
+        session['frango'] = request.form.POST('frango')
+
+        return redirect(url_for('tarefas'))
+
+    return render_template('app.html')
+
+
+#agora para limpar o session, basta usar o método clear() do objeto session, como mostrado abaixo:
+
+@app.route('/limpar', methods=['POST'])
+def limpar():
+    session.clear()
+    return redirect(url_for('tarefas'))
+
 
 
 if __name__ == '__main__':
