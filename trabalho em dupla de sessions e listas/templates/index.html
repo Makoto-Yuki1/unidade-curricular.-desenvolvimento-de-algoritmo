@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contador de Calorias</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🍎Contador de Calorias do Dia🍎</h1>
+
+    <form action="/adicionar" method="POST">
+        <input type="text" name="nome" placeholder="Alimento" required>
+
+        <input type="number" name="calorias"
+               placeholder="Calorias" required>
+
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <hr>
+
+    <h2>Alimentos Consumidos</h2>
+
+    <ul>
+        {% for alimento in alimentos %}
+            <li>
+                {{ alimento.nome }} -
+                {{ alimento.calorias }} kcal
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Total: {{ total }} kcal</h3>
+
+    <a href="/zerar">
+        <button>Zerar Dia</button>
+    </a>
+
+</body>
+</html>

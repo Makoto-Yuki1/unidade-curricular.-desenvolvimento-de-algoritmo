@@ -1,0 +1,171 @@
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===========================
+   BODY
+=========================== */
+
+body{
+    background: #f4f7f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+}
+
+.container{
+    width: 700px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+/* ===========================
+   TÍTULO
+=========================== */
+
+h1{
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 25px;
+}
+
+/* ===========================
+   FORMULÁRIO
+=========================== */
+
+form{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+input{
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #c8e6c9;
+    border-radius: 8px;
+    outline: none;
+    transition: .3s;
+}
+
+input:focus{
+    border-color: #4caf50;
+}
+
+/* ===========================
+   BOTÕES
+=========================== */
+
+button{
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+}
+
+button:hover{
+    background: #388e3c;
+    transform: scale(1.05);
+}
+
+/* Botão de zerar */
+
+.zerar{
+    display: inline-block;
+    text-decoration: none;
+    background: #e53935;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    transition: .3s;
+}
+
+.zerar:hover{
+    background: #c62828;
+}
+
+/* ===========================
+   LISTA
+=========================== */
+
+ul{
+    list-style: none;
+    margin-top: 20px;
+}
+
+li{
+    background: #f1f8e9;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-left: 6px solid #4caf50;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ===========================
+   TOTAL
+=========================== */
+
+.total{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+/* ===========================
+   MENSAGEM VAZIA
+=========================== */
+
+.vazio{
+    text-align: center;
+    color: gray;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+
+@media(max-width:600px){
+
+    form{
+        flex-direction: column;
+    }
+
+    button{
+        width:100%;
+    }
+
+    .zerar{
+        display:block;
+        text-align:center;
+    }
+
+    li{
+        flex-direction: column;
+        gap:8px;
+    }
+
+}

@@ -30,9 +30,9 @@ def tarefas():
         session['arroz'] = request.form.POST('arroz')
         session['frango'] = request.form.POST('frango')
 
-        return redirect(url_for('tarefas'))
+        return redirect(url_for('adicionar'))
 
-    return render_template('app.html')
+    return render_template('index.html')
 
 
 #agora para limpar o session, basta usar o método clear() do objeto session, como mostrado abaixo:
@@ -42,7 +42,7 @@ def limpar():
     session.clear()
     if not session:
         flash('Sessão limpa com sucesso!, dia zerado!')
-    return redirect(url_for('tarefas'))
+    return redirect(url_for('adicionar'))
 
 
 if __name__ == '__main__':
