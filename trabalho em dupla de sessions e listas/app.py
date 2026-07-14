@@ -1,36 +1,52 @@
-from flask import (
-    Flask,
-    render_template,
-    session,
-    redirect,
-    url_for,
-    request,
-    flash
-)
-
+from flask import Flask, render_template, 
+session, 
+redirect, 
+url_for, 
+request, 
+flash
 
 app = Flask(__name__)
-@app.route('/adicionar', methods=['GET', 'POST'])
-def tarefas():
-    if request.method == 'POST':
+# Defina uma secret key segura em produção (aqui só um valor de exemplo)
+app.secret_key = ("FLASK_SECRET_KEY")
 
-        session['arroz'] = request.form.POST('arroz')
-        session['frango'] = request.form.POST('frango')
+@app.route('/')
+def index():
+    # Inicializa a lista de alimentos na sessão se não existir
+    alimentos = session.get('alimentos', [])
+    # Calcula o total de calorias
+    total = sum(item.get('calorias', 0) for item in alimentos)
+    return render_template('index.html', alimentos=alimentos, total=total)
 
-        return redirect(url_for('adicionar'))
+@app.route('/adicionar', methods=['POST'])
+def adicionar():
+    nome = request.form.get('nome', '').strip()
+    calorias_raw = request.form.get('calorias', '').strip()
 
-    return render_template('index.html')
+    if not nome or not calorias_raw:
+        flash('Preencha nome e calorias.')
+        return redirect(url_for('index'))
 
+    try:
+        calorias = float(calorias_raw)
+        if calorias < 0:
+            raise ValueError()
+    except ValueError:
+        flash('Calorias inválidas. Use um número positivo.')
+        return redirect(url_for('index'))
 
-#agora para limpar o session, basta usar o método clear() do objeto session, como mostrado abaixo:
+    # Recupera a lista, adiciona o novo alimento e reatribui na sessão
+    alimentos = session.get('alimentos', [])
+    alimentos.append({'nome': nome, 'calorias': calorias})
+    session['alimentos'] = alimentos  # reatribuir garante que a sessão seja atualizada
 
-@app.route('/limpar', methods=['POST'])
-def limpar():
-    session.clear()
-    if not session:
-        flash('Sessão limpa com sucesso!, dia zerado!')
-    return redirect(url_for('adicionar'))
+    flash(f'{nome} adicionado ({calorias} kcal).')
+    return redirect(url_for('index'))
 
+@app.route('/zerar', methods=['GET'])
+def zerar():
+    session.pop('alimentos', None)  # remove apenas os alimentos; se quiser limpar tudo use session.clear()
+    flash('Dia zerado — todas as anotações removidas.')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
