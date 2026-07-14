@@ -11,12 +11,20 @@
 
     <h1>🍎Contador de Calorias do Dia🍎</h1>
 
-    <form action="/adicionar" method="POST">
+    <!-- Exibe mensagens flash -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash-messages">
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('adicionar') }}" method="POST">
         <input type="text" name="nome" placeholder="Alimento" required>
-
-        <input type="number" name="calorias"
-               placeholder="Calorias" required>
-
+        <input type="number" name="calorias" placeholder="Calorias" step="any" required>
         <button type="submit">Adicionar</button>
     </form>
 
@@ -25,19 +33,24 @@
     <h2>Alimentos Consumidos</h2>
 
     <ul>
-        {% for alimento in alimentos %}
-            <li>
-                {{ alimento.nome }} -
-                {{ alimento.calorias }} kcal
-            </li>
-        {% endfor %}
+        {% if alimentos %}
+            {% for alimento in alimentos %}
+                <li>
+                    {{ alimento.nome }} - {{ alimento.calorias }} kcal
+                </li>
+            {% endfor %}
+        {% else %}
+            <p class="vazio">Nenhum alimento registrado hoje.</p>
+        {% endif %}
     </ul>
 
     <h3>Total: {{ total }} kcal</h3>
 
-    <a href="/zerar">
-        <button>Zerar Dia</button>
+    <a href="{{ url_for('zerar') }}">
+        <button type="button">Zerar Dia</button>
     </a>
+
+</div>
 
 </body>
 </html>
