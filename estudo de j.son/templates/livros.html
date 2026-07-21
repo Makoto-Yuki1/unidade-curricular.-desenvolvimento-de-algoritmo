@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livros Cadastrados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .livro {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .livro h2 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+        .info {
+            margin: 8px 0;
+            color: #555;
+        }
+        .info strong {
+            color: #333;
+        }
+        .botoes {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-editar {
+            background-color: #2196F3;
+            color: white;
+        }
+        .btn-editar:hover {
+            background-color: #0b7dda;
+        }
+        .btn-excluir {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-excluir:hover {
+            background-color: #da190b;
+        }
+        .nenhum {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+            font-size: 18px;
+        }
+        .links {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #2196F3;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Livros Cadastrados</h1>
+
+    <div class="links">
+        <a href="{{ url_for('cadastro') }}">Cadastrar Novo Livro</a> |
+        <a href="{{ url_for('buscar') }}">Buscar Livro</a>
+    </div>
+
+    {% if livros %}
+        {% for livro in livros %}
+            <div class="livro">
+                <h2>{{ livro.titulo }}</h2>
+                <div class="info"><strong>Autor:</strong> {{ livro.autor }}</div>
+                <div class="info"><strong>Ano:</strong> {{ livro.ano }}</div>
+                <div class="info"><strong>Categoria:</strong> {{ livro.categoria }}</div>
+                <div class="info"><strong>Quantidade disponível:</strong> {{ livro.quantidade }}</div>
+                
+                <div class="botoes">
+                    <a href="{{ url_for('editar', indice=loop.index0) }}"><button class="btn-editar">Editar</button></a>
+                    <a href="{{ url_for('excluir', indice=loop.index0) }}"><button class="btn-excluir">Excluir</button></a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="nenhum">
+            <p>Nenhum livro cadastrado.</p>
+        </div>
+    {% endif %}
+</body>
+
+</html>

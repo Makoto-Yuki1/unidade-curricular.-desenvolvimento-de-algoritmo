@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Livros</title>
+    <title>Buscar Livro</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,7 +26,7 @@
             font-weight: bold;
             color: #555;
         }
-        input, select {
+        input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -47,20 +47,38 @@
         button:hover {
             background-color: #45a049;
         }
-        .erros {
-            background-color: #ffcccc;
-            color: #cc0000;
+        .mensagem {
             padding: 10px;
             border-radius: 4px;
-            margin-bottom: 15px;
-            display: none;
+            margin-top: 15px;
+            text-align: center;
         }
-        .erros.show {
-            display: block;
+        .nao-encontrado {
+            background-color: #ffcccc;
+            color: #cc0000;
         }
-        .erros ul {
-            margin: 0;
-            padding-left: 20px;
+        .obrigatorio {
+            background-color: #ffcccc;
+            color: #cc0000;
+        }
+        .resultado {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .resultado h2 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+        .info {
+            margin: 8px 0;
+            color: #555;
+        }
+        .info strong {
+            color: #333;
         }
         .links {
             text-align: center;
@@ -78,50 +96,33 @@
 </head>
 
 <body>
-    <h1>Cadastro de Livros</h1>
-
-    {% if erros %}
-        <div class="erros show">
-            <ul>
-                {% for erro in erros %}
-                    <li>{{ erro }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+    <h1>Buscar Livro</h1>
 
     <form method="POST">
         <div class="form-group">
             <label for="titulo">Título:</label>
-            <input type="text" id="titulo" name="titulo" required>
+            <input type="text" id="titulo" name="titulo" placeholder="Digite o título do livro" required>
         </div>
-
-        <div class="form-group">
-            <label for="autor">Autor:</label>
-            <input type="text" id="autor" name="autor" required>
-        </div>
-
-        <div class="form-group">
-            <label for="ano">Ano de Publicação:</label>
-            <input type="number" id="ano" name="ano" required>
-        </div>
-
-        <div class="form-group">
-            <label for="categoria">Categoria:</label>
-            <input type="text" id="categoria" name="categoria" required>
-        </div>
-
-        <div class="form-group">
-            <label for="quantidade">Quantidade de Exemplares:</label>
-            <input type="number" id="quantidade" name="quantidade" min="1" required>
-        </div>
-
-        <button type="submit">Cadastrar Livro</button>
+        <button type="submit">Buscar</button>
     </form>
 
+    {% if mensagem %}
+        <div class="mensagem nao-encontrado">{{ mensagem }}</div>
+    {% endif %}
+
+    {% if livro %}
+        <div class="resultado">
+            <h2>{{ livro.titulo }}</h2>
+            <div class="info"><strong>Autor:</strong> {{ livro.autor }}</div>
+            <div class="info"><strong>Ano:</strong> {{ livro.ano }}</div>
+            <div class="info"><strong>Categoria:</strong> {{ livro.categoria }}</div>
+            <div class="info"><strong>Quantidade disponível:</strong> {{ livro.quantidade }}</div>
+        </div>
+    {% endif %}
+
     <div class="links">
-        <a href="{{ url_for('listar') }}">Ver Livros Cadastrados</a> |
-        <a href="{{ url_for('buscar') }}">Buscar Livro</a>
+        <a href="{{ url_for('cadastro') }}">Cadastrar Novo Livro</a> |
+        <a href="{{ url_for('listar') }}">Ver Todos os Livros</a>
     </div>
 </body>
 
