@@ -1,0 +1,29 @@
+
+
+[
+    {
+        "nome": "notebook",
+        "preco": 3500,
+        "estoque": 10
+    },
+    {
+        "nome": "notebook",
+        "preco": 800,
+        "estoque": 35
+    },
+    {
+        "nome": "teclado",
+        "preco": 150,
+        "estoque": 20
+    }
+]
+
+
+
+
+
+
+
+
+
+
