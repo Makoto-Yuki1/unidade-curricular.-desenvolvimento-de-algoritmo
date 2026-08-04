@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Cardápio</title>
+</head>
+<body>
+    
+    <div class="container">
+
+    <div class="text-center mb-5">
+
+        <h1 class="display-5 fw-bold text-danger">
+            Cardápio
+        </h1>
+
+        <p class="lead text-secondary">
+            Confira os produtos disponíveis na CantinaTech e escolha o que deseja pedir.
+        </p>
+
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-header bg-danger text-white text-center py-3">
+
+                    <h3 class="mb-0">
+                        Nossas Opções
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <p class="fs-5 fw-bold text-danger text-center mb-4">
+                        Temos excelentes opções para você!
+                    </p>
+
+                    <ul class="list-group list-group-flush">
+                        {% for item in menu %}
+                        <li class="list-group-item text-danger fw-bold fs-5 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div>{{ item.nome }}</div>
+                                <small class="text-secondary">{{ item.descricao }}</small><br>
+                                <small class="text-secondary">R$ {{ "%.2f" | format(item.preco) }}</small>
+                            </div>
+                            <div>
+                                <a href="{{ url_for('pedido_page') }}?item_id={{ item.id }}" class="btn btn-outline-danger btn-sm">Fazer Pedido</a>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item text-danger fw-bold fs-5">
+                            Nenhum item disponível no momento.
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                </div>
+
+                <div class="card-footer bg-white border-0 p-4">
+
+                    <div class="d-grid">
+
+                        <a href="/pedido" class="btn btn-danger btn-lg">
+                            Fazer Pedido
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="text-center mt-5">
+
+        <a href="/index" class="btn btn-outline-danger btn-lg">
+            Voltar para a Página Inicial
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
