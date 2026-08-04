@@ -5,16 +5,12 @@ import os
 
 app = Flask(__name__)
 
-# Chave usada para sessões do Flask
 app.secret_key = "chave_secreta_cantina"
 
 
 DATA_FILE = "app.json"
 
-
-# =========================
 # BANCO DE DADOS JSON
-# =========================
 
 def criar_dados_iniciais():
     return {
@@ -111,9 +107,11 @@ def criar_dados_iniciais():
                 ],
                 "tipo": "bebida",
                 "preco": 8.0
+                
             }
+            
         ],
-
+   
         "orders": [],
 
         "next_order_id": 1
@@ -174,7 +172,6 @@ def get_user_orders(username, data):
         if pedido["username"] == username
     ]                                                                                                                                                                                                                                         # =========================
 # FILTRO DO CARDÁPIO
-# =========================
 
 def filter_menu(menu, restricoes, preferencia):
 
