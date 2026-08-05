@@ -610,9 +610,9 @@ def criar_pedido():
 
     if not item or quantidade < 1:
 
-        return redirect(
-            url_for("cardapio")
-        )
+    return redirect(
+        url_for("confirmacao")
+         )
 
 
 
@@ -710,8 +710,14 @@ def meus_pedidos():
         orders=pedidos
 
     )
-
-
+# =======================
+# CONFIRMAÇÃO DO PEDIDO
+# =======================
+@app.route("/confirmacao")
+def confirmacao():
+    username = current_user()
+    return render_template("confirmacao.html", username=username)
+    
 
 # =========================
 # EDITAR PEDIDO
