@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-group">
+                <div class="logo-badge">📚</div>
+                <div>
+                    <h1>Biblioteca App</h1>
+                    <p>Controle do acervo e cadastro de livros</p>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('livros') }}">Cadastro</a>
+                <a href="{{ url_for('acervo') }}">Acervo</a>
+                <a href="{{ url_for('autores') }}">Autores</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="flash-messages">
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    {% for categoria, mensagem in mensagens %}
+                        <div class="alert {{ categoria }}">{{ mensagem }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <section class="hero">
+            <div class="card">
+                <h2 class="page-title">Gestão de acervo bibliográfico</h2>
+                <p class="page-subtitle">
+                    Cadastre livros, organize autores e categorias, e acompanhe o acervo em tempo real com uma interface simples e funcional.
+                </p>
+            </div>
+
+            <div class="summary-grid">
+                <div class="metric">
+                    <span class="metric-label">Livros</span>
+                    <span class="metric-value">{{ total_livros }}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Autores</span>
+                    <span class="metric-value">{{ total_autores }}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Categorias</span>
+                    <span class="metric-value">{{ total_categorias }}</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-header">
+            <h2>Últimos livros cadastrados</h2>
+            <a href="{{ url_for('livros') }}">Cadastrar livro</a>
+        </div>
+
+        <section class="card">
+            {% if livros_recentes %}
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Categoria</th>
+                                <th>Ano</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for livro in livros_recentes %}
+                                <tr>
+                                    <td><strong>{{ livro.titulo }}</strong></td>
+                                    <td>{{ livro.autor or 'Não informado' }}</td>
+                                    <td><span class="badge">{{ livro.categoria or 'Sem categoria' }}</span></td>
+                                    <td>{{ livro.ano_publicacao or '—' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>Nenhum livro foi cadastrado ainda.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão da Biblioteca © 2026</p>
+    </footer>
+</body>
+</html>

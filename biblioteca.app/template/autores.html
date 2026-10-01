@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autores</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-group">
+                <div class="logo-badge">📚</div>
+                <div>
+                    <h1>Biblioteca App</h1>
+                    <p>Autores cadastrados</p>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('livros') }}">Cadastro</a>
+                <a href="{{ url_for('acervo') }}">Acervo</a>
+                <a href="{{ url_for('autores') }}">Autores</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="section-header">
+            <h2>Autores</h2>
+            <a href="{{ url_for('livros') }}">Cadastrar novo livro</a>
+        </div>
+
+        <section class="card">
+            {% if autores %}
+                <div class="author-list">
+                    {% for autor in autores %}
+                        <article class="author-card">
+                            <h3>{{ autor.nome }}</h3>
+                            <p>{{ autor.total_livros }} livro(s) associado(s)</p>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>Nenhum autor foi encontrado.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão da Biblioteca © 2026</p>
+    </footer>
+</body>
+</html>

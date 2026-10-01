@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-group">
+                <div class="logo-badge">📚</div>
+                <div>
+                    <h1>Biblioteca App</h1>
+                    <p>Cadastro de livros</p>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('livros') }}">Cadastro</a>
+                <a href="{{ url_for('acervo') }}">Acervo</a>
+                <a href="{{ url_for('autores') }}">Autores</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="flash-messages">
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+                {% if mensagens %}
+                    {% for categoria, mensagem in mensagens %}
+                        <div class="alert {{ categoria }}">{{ mensagem }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <section class="card">
+            <div class="section-header">
+                <h2>Cadastrar novo livro</h2>
+            </div>
+
+            <form method="POST" action="{{ url_for('livros') }}">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="titulo">Título</label>
+                        <input id="titulo" type="text" name="titulo" placeholder="Ex.: Dom Casmurro" required>
+                    </div>
+
+                    <div class="field">
+                        <label for="isbn">ISBN</label>
+                        <input id="isbn" type="text" name="isbn" placeholder="Ex.: 978-85-123-4567-8">
+                    </div>
+
+                    <div class="field">
+                        <label for="ano_publicacao">Ano de publicação</label>
+                        <input id="ano_publicacao" type="number" name="ano_publicacao" min="0" max="2100" placeholder="Ex.: 1899">
+                    </div>
+
+                    <div class="field">
+                        <label for="autor">Autor</label>
+                        <input id="autor" type="text" name="autor" list="autores-list" placeholder="Ex.: Machado de Assis" required>
+                        <datalist id="autores-list">
+                            {% for autor in autores %}
+                                <option value="{{ autor.nome }}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </div>
+
+                    <div class="field" style="grid-column: 1 / -1;">
+                        <label for="categoria">Categoria</label>
+                        <input id="categoria" type="text" name="categoria" list="categorias-list" placeholder="Ex.: Romance" required>
+                        <datalist id="categorias-list">
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.nome }}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                </div>
+
+                <div class="submit-area">
+                    <button class="btn" type="submit">Salvar livro</button>
+                </div>
+            </form>
+        </section>
+
+        <div class="section-header">
+            <h2>Livros cadastrados</h2>
+        </div>
+
+        <section class="card">
+            {% if livros %}
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Autor</th>
+                                <th>Categoria</th>
+                                <th>ISBN</th>
+                                <th>Ano</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for livro in livros %}
+                                <tr>
+                                    <td>#{{ livro.id }}</td>
+                                    <td><strong>{{ livro.titulo }}</strong></td>
+                                    <td>{{ livro.autor or '—' }}</td>
+                                    <td><span class="badge">{{ livro.categoria or '—' }}</span></td>
+                                    <td>{{ livro.isbn or '—' }}</td>
+                                    <td>{{ livro.ano_publicacao or '—' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>Ainda não há livros cadastrados.</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão da Biblioteca © 2026</p>
+    </footer>
+</body>
+</html>
